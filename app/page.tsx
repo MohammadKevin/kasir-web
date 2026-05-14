@@ -172,8 +172,13 @@ export default function LailaPinkLandingPage() {
             {/* Brand Section */}
             <div className="col-span-12 lg:col-span-5 space-y-6">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-pink-600 rounded-2xl flex items-center justify-center text-white font-serif italic text-2xl font-black shadow-xl">
-                  L
+                <div className="w-8 h-8 rounded-lg overflow-hidden shadow-md">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/laila.jpg"
+                    alt="Laila Logo"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter text-white uppercase italic">
                   Laila{" "}
