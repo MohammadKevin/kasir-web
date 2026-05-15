@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import Link from "next/link";
 
@@ -14,6 +14,9 @@ import {
   Users,
   Settings,
   LogOut,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Tag,
 } from "lucide-react";
 
 import { usePathname } from "next/navigation";
@@ -22,17 +25,22 @@ const menus = [
   {
     label: "Dashboard",
     icon: LayoutDashboard,
-    href: "/super-admin/dashboard",
+    href: "/super-admin",
   },
   {
     label: "Outlets",
     icon: Store,
-    href: "/super-admin/Outlets",
+    href: "/super-admin/outlets",
   },
   {
     label: "Admins",
     icon: Users,
     href: "/super-admin/admins",
+  },
+  {
+    label: "Categories",
+    icon: Tag,
+    href: "/super-admin/categories",
   },
   {
     label: "Products",
@@ -68,45 +76,86 @@ export default function SuperAdminLayout({
 }) {
   const pathname = usePathname();
 
+  const [collapsed, setCollapsed] =
+    useState(false);
+
   return (
-    <div className="min-h-screen bg-[#FFF5F7] flex text-pink-950">
-      <aside className="w-72 bg-white border-r border-pink-100 fixed h-full flex flex-col justify-between p-6 z-50">
+    <div className="min-h-screen bg-[#F4FAFD] flex text-[#1F3D4F]">
+      <aside
+        className={`fixed left-0 top-0 h-screen bg-white border-r border-[#D9EAF2] z-50 transition-all duration-300 flex flex-col justify-between ${
+          collapsed
+            ? "w-24 p-4"
+            : "w-72 p-6"
+        }`}
+      >
         <div>
-          <div className="flex items-center gap-3 mb-10">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/laila.jpg"
-              alt="Logo"
-              className="w-10 h-10 rounded-xl object-cover shadow-sm border border-pink-50 flex-shrink-0"
-            />
+          <div
+            className={`flex items-center ${
+              collapsed
+                ? "justify-center"
+                : "justify-between"
+            } mb-10`}
+          >
+            {!collapsed && (
+              <div className="flex items-center gap-3">
+                <img
+                  src="/laila.jpg"
+                  alt="Logo"
+                  className="w-11 h-11 rounded-2xl object-cover shadow-sm border border-[#D9EAF2] flex-shrink-0"
+                />
 
-            <div>
-              <h1 className="font-black text-lg leading-none">
-                Laila Collection
-              </h1>
+                <div>
+                  <h1 className="font-black text-lg leading-none">
+                    Laila Collection
+                  </h1>
 
-              <p className="text-xs text-pink-400 uppercase tracking-widest mt-1">
-                Super Admin
-              </p>
-            </div>
+                  <p className="text-xs text-[#81A6C6] uppercase tracking-widest mt-1 font-bold">
+                    Super Admin
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <button
+              onClick={() =>
+                setCollapsed(!collapsed)
+              }
+              className="w-11 h-11 rounded-2xl bg-[#F4FAFD] hover:bg-[#D9EAF2] flex items-center justify-center transition-all text-[#3B7597]"
+            >
+              {collapsed ? (
+                <PanelLeftOpen className="w-5 h-5" />
+              ) : (
+                <PanelLeftClose className="w-5 h-5" />
+              )}
+            </button>
           </div>
 
           <nav className="space-y-2">
             {menus.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive =
+                pathname === item.href;
 
               return (
-                <Link key={item.label} href={item.href}>
+                <Link
+                  key={item.label}
+                  href={item.href}
+                >
                   <button
-                    className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-sm font-bold transition-all ${
+                    className={`w-full flex items-center ${
+                      collapsed
+                        ? "justify-center"
+                        : "justify-start"
+                    } gap-4 px-5 py-4 rounded-2xl text-sm font-bold transition-all ${
                       isActive
-                        ? "bg-pink-600 text-white shadow-lg shadow-pink-200"
-                        : "hover:bg-pink-50 hover:text-pink-600"
+                        ? "bg-[#3B7597] text-white shadow-lg shadow-[#81A6C6]/30"
+                        : "hover:bg-[#F4FAFD] hover:text-[#3B7597] text-[#1F3D4F]/70"
                     }`}
                   >
-                    <item.icon className="w-5 h-5" />
+                    <item.icon className="w-5 h-5 flex-shrink-0" />
 
-                    {item.label}
+                    {!collapsed && (
+                      <span>{item.label}</span>
+                    )}
                   </button>
                 </Link>
               );
@@ -115,14 +164,31 @@ export default function SuperAdminLayout({
         </div>
 
         <Link href="/login">
-          <button className="w-full bg-rose-50 hover:bg-rose-100 text-rose-500 rounded-2xl py-4 flex items-center justify-center gap-3 font-bold transition-all">
+          <button
+            className={`w-full rounded-2xl py-4 flex items-center ${
+              collapsed
+                ? "justify-center"
+                : "justify-center gap-3"
+            } font-bold transition-all bg-[#F4FAFD] hover:bg-[#D9EAF2] text-[#3B7597]`}
+          >
             <LogOut className="w-5 h-5" />
-            Logout
+
+            {!collapsed && (
+              <span>Logout</span>
+            )}
           </button>
         </Link>
       </aside>
 
-      <main className="flex-1 ml-72">{children}</main>
+      <main
+        className={`flex-1 transition-all duration-300 ${
+          collapsed
+            ? "ml-24"
+            : "ml-72"
+        }`}
+      >
+        {children}
+      </main>
     </div>
   );
 }

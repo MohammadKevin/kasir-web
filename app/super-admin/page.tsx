@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-
+import React from "react";
 import {
   TrendingUp,
   TrendingDown,
@@ -103,38 +102,27 @@ const lowStockProducts = [
 ];
 
 const COLORS = [
-  "#db2777",
-  "#f472b6",
-  "#ec4899",
-  "#be185d",
+  "#3B7597",
+  "#81A6C6",
+  "#AACDDC",
+  "#1F3D4F",
 ];
 
 export default function SuperAdminDashboardPage() {
-  const [mounted, setMounted] =
-    useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   return (
-    <div className="min-h-screen bg-[#FFF5F7] p-10 space-y-8 text-pink-950">
+    <div className="min-h-screen bg-[#F4FAFD] p-6 md:p-10 space-y-8 text-[#1F3D4F]">
       <div>
         <h1 className="text-4xl font-black tracking-tight">
           Dashboard Overview
         </h1>
 
-        <p className="text-pink-400 mt-2 text-sm">
-          Monitoring seluruh performa bisnis
-          Laila Collection.
+        <p className="text-[#81A6C6] mt-2 text-sm">
+          Monitoring seluruh performa bisnis Laila Collection.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        <div className="bg-gradient-to-br from-pink-600 to-pink-700 text-white p-7 rounded-[2rem] shadow-lg">
+        <div className="bg-gradient-to-br from-[#3B7597] to-[#1F3D4F] text-white p-7 rounded-[2rem] shadow-xl shadow-[#81A6C6]/20">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs uppercase tracking-widest opacity-80 font-bold">
@@ -149,16 +137,16 @@ export default function SuperAdminDashboardPage() {
             <DollarSign className="w-10 h-10 opacity-80" />
           </div>
 
-          <div className="flex items-center gap-2 mt-6 text-sm font-bold text-pink-100">
+          <div className="flex items-center gap-2 mt-6 text-sm font-bold text-[#AACDDC]">
             <TrendingUp className="w-4 h-4" />
             +12% bulan ini
           </div>
         </div>
 
-        <div className="bg-white p-7 rounded-[2rem] border border-pink-100 shadow-sm">
+        <div className="bg-white p-7 rounded-[2rem] border border-[#AACDDC] shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs uppercase tracking-widest text-pink-400 font-bold">
+              <p className="text-xs uppercase tracking-widest text-[#81A6C6] font-bold">
                 Net Profit
               </p>
 
@@ -167,18 +155,18 @@ export default function SuperAdminDashboardPage() {
               </h2>
             </div>
 
-            <TrendingUp className="w-10 h-10 text-green-500" />
+            <TrendingUp className="w-10 h-10 text-emerald-500" />
           </div>
 
-          <p className="text-sm font-bold text-green-500 mt-6">
+          <p className="text-sm font-bold text-emerald-500 mt-6">
             PROFIT STABLE
           </p>
         </div>
 
-        <div className="bg-white p-7 rounded-[2rem] border border-pink-100 shadow-sm">
+        <div className="bg-white p-7 rounded-[2rem] border border-[#AACDDC] shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs uppercase tracking-widest text-pink-400 font-bold">
+              <p className="text-xs uppercase tracking-widest text-[#81A6C6] font-bold">
                 Total Expense
               </p>
 
@@ -195,10 +183,10 @@ export default function SuperAdminDashboardPage() {
           </p>
         </div>
 
-        <div className="bg-[#2D1B1E] text-white p-7 rounded-[2rem] shadow-lg">
+        <div className="bg-[#1F3D4F] text-white p-7 rounded-[2rem] shadow-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs uppercase tracking-widest text-pink-300 font-bold">
+              <p className="text-xs uppercase tracking-widest text-[#AACDDC] font-bold">
                 Transactions
               </p>
 
@@ -207,29 +195,29 @@ export default function SuperAdminDashboardPage() {
               </h2>
             </div>
 
-            <Receipt className="w-10 h-10 text-pink-200" />
+            <Receipt className="w-10 h-10 text-[#81A6C6]" />
           </div>
 
-          <p className="text-sm font-bold text-pink-200 mt-6">
+          <p className="text-sm font-bold text-[#AACDDC] mt-6">
             REALTIME ACTIVE
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-        <div className="xl:col-span-2 bg-white p-8 rounded-[2.5rem] border border-pink-100 shadow-sm">
+        <div className="xl:col-span-2 bg-white p-8 rounded-[2.5rem] border border-[#AACDDC] shadow-sm">
           <div className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-lg font-black">
                 Sales Analytics
               </h2>
 
-              <p className="text-sm text-pink-400 mt-1">
+              <p className="text-sm text-[#81A6C6] mt-1">
                 Revenue 7 hari terakhir
               </p>
             </div>
 
-            <div className="bg-pink-50 text-pink-600 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest">
+            <div className="bg-[#F4FAFD] text-[#3B7597] px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest">
               Live Data
             </div>
           </div>
@@ -247,13 +235,13 @@ export default function SuperAdminDashboardPage() {
                   >
                     <stop
                       offset="5%"
-                      stopColor="#db2777"
+                      stopColor="#3B7597"
                       stopOpacity={0.4}
                     />
 
                     <stop
                       offset="95%"
-                      stopColor="#db2777"
+                      stopColor="#3B7597"
                       stopOpacity={0}
                     />
                   </linearGradient>
@@ -262,13 +250,14 @@ export default function SuperAdminDashboardPage() {
                 <CartesianGrid
                   strokeDasharray="3 3"
                   vertical={false}
-                  stroke="#FCE7F3"
+                  stroke="#D9EAF2"
                 />
 
                 <XAxis
                   dataKey="name"
                   axisLine={false}
                   tickLine={false}
+                  tick={{ fill: "#81A6C6" }}
                 />
 
                 <Tooltip />
@@ -276,7 +265,7 @@ export default function SuperAdminDashboardPage() {
                 <Area
                   type="monotone"
                   dataKey="sales"
-                  stroke="#db2777"
+                  stroke="#3B7597"
                   strokeWidth={4}
                   fill="url(#colorSales)"
                 />
@@ -285,19 +274,19 @@ export default function SuperAdminDashboardPage() {
           </div>
         </div>
 
-        <div className="bg-white p-8 rounded-[2.5rem] border border-pink-100 shadow-sm">
+        <div className="bg-white p-8 rounded-[2.5rem] border border-[#AACDDC] shadow-sm">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="text-lg font-black">
                 Payment Methods
               </h2>
 
-              <p className="text-sm text-pink-400 mt-1">
+              <p className="text-sm text-[#81A6C6] mt-1">
                 Statistik pembayaran
               </p>
             </div>
 
-            <CreditCard className="w-6 h-6 text-pink-500" />
+            <CreditCard className="w-6 h-6 text-[#3B7597]" />
           </div>
 
           <div className="h-[260px]">
@@ -311,19 +300,12 @@ export default function SuperAdminDashboardPage() {
                   dataKey="value"
                   label
                 >
-                  {paymentStats.map(
-                    (_, index) => (
-                      <Cell
-                        key={index}
-                        fill={
-                          COLORS[
-                            index %
-                              COLORS.length
-                          ]
-                        }
-                      />
-                    ),
-                  )}
+                  {paymentStats.map((_, index) => (
+                    <Cell
+                      key={index}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
                 </Pie>
               </PieChart>
             </ResponsiveContainer>
@@ -332,122 +314,103 @@ export default function SuperAdminDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-        <div className="bg-white p-8 rounded-[2.5rem] border border-pink-100 shadow-sm">
+        <div className="bg-white p-8 rounded-[2.5rem] border border-[#AACDDC] shadow-sm">
           <div className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-lg font-black">
                 Outlet Performance
               </h2>
 
-              <p className="text-sm text-pink-400 mt-1">
+              <p className="text-sm text-[#81A6C6] mt-1">
                 Outlet terbaik bulan ini
               </p>
             </div>
 
-            <Store className="w-6 h-6 text-pink-500" />
+            <Store className="w-6 h-6 text-[#3B7597]" />
           </div>
 
           <div className="space-y-5">
-            {outletPerformance.map(
-              (outlet) => (
-                <div
-                  key={outlet.id}
-                  className="flex items-center justify-between p-5 rounded-2xl border border-pink-100 hover:bg-pink-50 transition-all"
-                >
-                  <div>
-                    <h3 className="font-black text-sm">
-                      {outlet.name}
-                    </h3>
+            {outletPerformance.map((outlet) => (
+              <div
+                key={outlet.id}
+                className="flex items-center justify-between p-5 rounded-2xl border border-[#D9EAF2] hover:bg-[#F4FAFD] transition-all"
+              >
+                <div>
+                  <h3 className="font-black text-sm">
+                    {outlet.name}
+                  </h3>
 
-                    <p className="text-xs text-pink-400 mt-1 uppercase tracking-widest font-bold">
-                      {
-                        outlet.transactions
-                      }{" "}
-                      Transactions
+                  <p className="text-xs text-[#81A6C6] mt-1 uppercase tracking-widest font-bold">
+                    {outlet.transactions} Transactions
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="text-right">
+                    <p className="font-black text-[#1F3D4F]">
+                      {outlet.revenue}
+                    </p>
+
+                    <p className="text-xs text-emerald-500 font-bold mt-1">
+                      PROFITABLE
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
-                      <p className="font-black text-pink-950">
-                        {outlet.revenue}
-                      </p>
-
-                      <p className="text-xs text-green-500 font-bold mt-1">
-                        PROFITABLE
-                      </p>
-                    </div>
-
-                    <ChevronRight className="w-5 h-5 text-pink-300" />
-                  </div>
+                  <ChevronRight className="w-5 h-5 text-[#81A6C6]" />
                 </div>
-              ),
-            )}
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="space-y-8">
-          <div className="bg-white p-8 rounded-[2.5rem] border border-pink-100 shadow-sm">
+          <div className="bg-white p-8 rounded-[2.5rem] border border-[#AACDDC] shadow-sm">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-lg font-black">
                   Recent Transactions
                 </h2>
 
-                <p className="text-sm text-pink-400 mt-1">
+                <p className="text-sm text-[#81A6C6] mt-1">
                   Transaksi terbaru
                 </p>
               </div>
 
-              <Receipt className="w-6 h-6 text-pink-500" />
+              <Receipt className="w-6 h-6 text-[#3B7597]" />
             </div>
 
             <div className="space-y-4">
-              {recentTransactions.map(
-                (transaction) => (
-                  <div
-                    key={
-                      transaction.invoice
-                    }
-                    className="flex items-center justify-between border border-pink-100 rounded-2xl p-4"
-                  >
-                    <div>
-                      <h3 className="font-black text-sm">
-                        {
-                          transaction.invoice
-                        }
-                      </h3>
+              {recentTransactions.map((transaction) => (
+                <div
+                  key={transaction.invoice}
+                  className="flex items-center justify-between border border-[#D9EAF2] rounded-2xl p-4"
+                >
+                  <div>
+                    <h3 className="font-black text-sm">
+                      {transaction.invoice}
+                    </h3>
 
-                      <p className="text-xs text-pink-400 uppercase font-bold mt-1">
-                        {
-                          transaction.outlet
-                        }{" "}
-                        •{" "}
-                        {
-                          transaction.payment
-                        }
-                      </p>
-                    </div>
-
-                    <p className="font-black text-pink-950">
-                      {
-                        transaction.total
-                      }
+                    <p className="text-xs text-[#81A6C6] uppercase font-bold mt-1">
+                      {transaction.outlet} • {transaction.payment}
                     </p>
                   </div>
-                ),
-              )}
+
+                  <p className="font-black text-[#1F3D4F]">
+                    {transaction.total}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-[2.5rem] border border-pink-100 shadow-sm">
+          <div className="bg-white p-8 rounded-[2.5rem] border border-[#AACDDC] shadow-sm">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-lg font-black">
                   Low Stock Warning
                 </h2>
 
-                <p className="text-sm text-pink-400 mt-1">
+                <p className="text-sm text-[#81A6C6] mt-1">
                   Produk hampir habis
                 </p>
               </div>
@@ -456,46 +419,42 @@ export default function SuperAdminDashboardPage() {
             </div>
 
             <div className="space-y-4">
-              {lowStockProducts.map(
-                (product) => (
-                  <div
-                    key={product.name}
-                    className="flex items-center justify-between bg-amber-50 border border-amber-100 rounded-2xl p-4"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center">
-                        <Package className="w-5 h-5 text-amber-600" />
-                      </div>
-
-                      <div>
-                        <h3 className="font-black text-sm">
-                          {
-                            product.name
-                          }
-                        </h3>
-
-                        <p className="text-xs text-amber-600 font-bold mt-1 uppercase">
-                          Restock Needed
-                        </p>
-                      </div>
+              {lowStockProducts.map((product) => (
+                <div
+                  key={product.name}
+                  className="flex items-center justify-between bg-amber-50 border border-amber-100 rounded-2xl p-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center">
+                      <Package className="w-5 h-5 text-amber-600" />
                     </div>
 
-                    <div className="bg-amber-200 text-amber-900 px-3 py-2 rounded-full text-xs font-black">
-                      {product.stock} Left
+                    <div>
+                      <h3 className="font-black text-sm">
+                        {product.name}
+                      </h3>
+
+                      <p className="text-xs text-amber-600 font-bold mt-1 uppercase">
+                        Restock Needed
+                      </p>
                     </div>
                   </div>
-                ),
-              )}
+
+                  <div className="bg-amber-200 text-amber-900 px-3 py-2 rounded-full text-xs font-black">
+                    {product.stock} Left
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-[2rem] border border-pink-100 p-6 shadow-sm">
+        <div className="bg-white rounded-[2rem] border border-[#AACDDC] p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs uppercase tracking-widest text-pink-400 font-bold">
+              <p className="text-xs uppercase tracking-widest text-[#81A6C6] font-bold">
                 Total Outlet
               </p>
 
@@ -504,14 +463,14 @@ export default function SuperAdminDashboardPage() {
               </h2>
             </div>
 
-            <Store className="w-8 h-8 text-pink-500" />
+            <Store className="w-8 h-8 text-[#3B7597]" />
           </div>
         </div>
 
-        <div className="bg-white rounded-[2rem] border border-pink-100 p-6 shadow-sm">
+        <div className="bg-white rounded-[2rem] border border-[#AACDDC] p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs uppercase tracking-widest text-pink-400 font-bold">
+              <p className="text-xs uppercase tracking-widest text-[#81A6C6] font-bold">
                 Total Admin
               </p>
 
@@ -520,14 +479,14 @@ export default function SuperAdminDashboardPage() {
               </h2>
             </div>
 
-            <Users className="w-8 h-8 text-pink-500" />
+            <Users className="w-8 h-8 text-[#3B7597]" />
           </div>
         </div>
 
-        <div className="bg-white rounded-[2rem] border border-pink-100 p-6 shadow-sm">
+        <div className="bg-white rounded-[2rem] border border-[#AACDDC] p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs uppercase tracking-widest text-pink-400 font-bold">
+              <p className="text-xs uppercase tracking-widest text-[#81A6C6] font-bold">
                 Total Products
               </p>
 
@@ -536,14 +495,14 @@ export default function SuperAdminDashboardPage() {
               </h2>
             </div>
 
-            <ShoppingBag className="w-8 h-8 text-pink-500" />
+            <ShoppingBag className="w-8 h-8 text-[#3B7597]" />
           </div>
         </div>
 
-        <div className="bg-white rounded-[2rem] border border-pink-100 p-6 shadow-sm">
+        <div className="bg-white rounded-[2rem] border border-[#AACDDC] p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs uppercase tracking-widest text-pink-400 font-bold">
+              <p className="text-xs uppercase tracking-widest text-[#81A6C6] font-bold">
                 Best Seller
               </p>
 
@@ -552,7 +511,7 @@ export default function SuperAdminDashboardPage() {
               </h2>
             </div>
 
-            <TrendingUp className="w-8 h-8 text-green-500" />
+            <TrendingUp className="w-8 h-8 text-emerald-500" />
           </div>
         </div>
       </div>
