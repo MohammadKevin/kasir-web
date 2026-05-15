@@ -14,6 +14,8 @@ import {
   LogOut,
   ChevronRight,
   Link as LinkIcon,
+  Calendar,
+  Zap,
 } from "lucide-react";
 import {
   BarChart,
@@ -28,6 +30,20 @@ import {
 } from "recharts";
 
 // --- DATA MOCK ---
+const outlets = [
+  { id: "1", name: "Cabang Jakarta" },
+  { id: "2", name: "Cabang Bandung" },
+  { id: "3", name: "Cabang Surabaya" },
+  { id: "4", name: "Cabang Malang" },
+];
+
+const dataPerCabang = [
+  { name: "Jakarta", sales: 4000 },
+  { name: "Bandung", sales: 3000 },
+  { name: "Surabaya", sales: 2000 },
+  { name: "Malang", sales: 2780 },
+];
+
 const dataHarian = [
   { name: "08:00", sales: 200, date: "Kamis, 14 Mei" },
   { name: "12:00", sales: 800, date: "Kamis, 14 Mei" },
@@ -36,16 +52,18 @@ const dataHarian = [
 ];
 
 const dataBulanan = [
-  { name: "Min 1", detail: "Senin, 04 Mei 2026", sales: 4500 },
-  { name: "Min 2", detail: "Kamis, 14 Mei 2026", sales: 5200 },
-  { name: "Min 3", detail: "Sabtu, 23 Mei 2026", sales: 3100 },
-  { name: "Min 4", detail: "Rabu, 27 Mei 2026", sales: 2800 },
+  { name: "Minggu 1", sales: 12000 },
+  { name: "Minggu 2", sales: 15000 },
+  { name: "Minggu 3", sales: 11000 },
+  { name: "Minggu 4", sales: 19000 },
 ];
 
 const dataTahunan = [
-  { name: "Mar", detail: "Rabu, 25 Maret 2026", sales: 48000 },
-  { name: "Apr", detail: "Minggu, 12 April 2026", sales: 62000 },
-  { name: "Mei", detail: "Kamis, 14 Mei 2026", sales: 55000 },
+  { name: "Jan", sales: 45000 },
+  { name: "Feb", sales: 52000 },
+  { name: "Mar", sales: 48000 },
+  { name: "Apr", sales: 61000 },
+  { name: "Mei", sales: 55000 },
 ];
 
 const daftarOutlet = [
@@ -75,12 +93,44 @@ const daftarOutlet = [
 export default function SuperAdminDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [mounted, setMounted] = useState(false);
+  const [selectedOutlet, setSelectedOutlet] = useState("all");
+  const [timeFilter, setTimeFilter] = useState("harian");
 
-  // Mencegah error Recharts SSR
+  const selectedOutletName =
+    outlets.find((o) => o.id === selectedOutlet)?.name || "Semua Cabang";
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
+
+  // --- LOGIKA TAMBAHAN: DETAIL INSIGHT ---
+  const getInsightDetail = () => {
+    if (timeFilter === "harian") {
+      return {
+        title: "Laporan Hari Ini",
+        detail: "Kamis, 14 Mei 2026",
+        peak: "Pukul 16:00 WIB",
+        note: "Penjualan tertinggi tercatat pada sore hari.",
+      };
+    } else if (timeFilter === "bulanan") {
+      return {
+        title: "Laporan Bulanan",
+        detail: "Mei 2026",
+        peak: "Minggu ke-4",
+        note: "Puncak transaksi terjadi pada periode akhir bulan (Gajian).",
+      };
+    } else {
+      return {
+        title: "Laporan Tahunan",
+        detail: "Tahun Buku 2026",
+        peak: "Bulan April",
+        note: "April menjadi bulan terbaik sejauh ini berkat musim Ramadan.",
+      };
+    }
+  };
+
+  const insight = getInsightDetail();
 
   if (!mounted) return null;
 
@@ -88,9 +138,7 @@ export default function SuperAdminDashboard() {
     <div className="min-h-screen bg-[#FFF5F7] flex font-sans text-pink-950">
       {/* --- SIDEBAR --- */}
       <aside className="w-64 bg-white border-r border-pink-100 flex flex-col p-6 fixed h-full justify-between z-50">
-        {/* --- TOP SECTION: Logo & Navigasi --- */}
         <div className="space-y-10">
-          {/* Logo Section */}
           <div className="flex items-center gap-3 px-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -102,8 +150,6 @@ export default function SuperAdminDashboard() {
               Laila Collection
             </span>
           </div>
-
-          {/* Menu Navigasi */}
           <nav className="space-y-1.5">
             {[
               { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -130,8 +176,6 @@ export default function SuperAdminDashboard() {
             })}
           </nav>
         </div>
-
-        {/* --- BOTTOM SECTION: Logout --- */}
         <div className="pt-6 border-t border-pink-50">
           <Link href="/login" className="block w-full no-underline">
             <button className="w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-[11px] font-bold uppercase tracking-widest text-rose-500 hover:bg-rose-50 transition-all duration-200 group">
@@ -144,29 +188,17 @@ export default function SuperAdminDashboard() {
 
       {/* --- MAIN CONTENT --- */}
       <main className="flex-1 ml-64 p-10">
-        {/* TAB DASHBOARD */}
+        {/* --- TAB DASHBOARD --- */}
         {activeTab === "dashboard" && (
           <div className="space-y-8 animate-in fade-in duration-700">
-            <header className="flex justify-between items-center">
-              <div>
-                <h1 className="text-3xl font-black tracking-tight">
-                  Ringkasan Bisnis
-                </h1>
-                <p className="text-pink-900/40 text-sm">
-                  Update terakhir: Kamis, 14 Mei 2026 - 23:45
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <div className="bg-white p-2 rounded-full border border-pink-100 shadow-sm">
-                  <Mail className="w-4 h-4 text-pink-400" />
-                </div>
-                <div className="bg-white p-2 rounded-full border border-pink-100 shadow-sm">
-                  <Phone className="w-4 h-4 text-pink-400" />
-                </div>
-              </div>
+            <header>
+              <h1 className="text-3xl font-black tracking-tight">
+                Ringkasan Bisnis
+              </h1>
+              <p className="text-pink-900/40 text-sm">
+                Update terakhir: Kamis, 14 Mei 2026 - 23:45
+              </p>
             </header>
-
-            {/* Stats */}
             <div className="grid grid-cols-3 gap-6">
               <div className="bg-white p-6 rounded-[2.5rem] border border-pink-100 shadow-sm hover:scale-[1.02] transition-transform">
                 <p className="text-[10px] font-black text-pink-400 uppercase tracking-widest mb-2">
@@ -198,18 +230,11 @@ export default function SuperAdminDashboard() {
                 </div>
               </div>
             </div>
-
-            {/* Area Chart Dashboard */}
             <div className="bg-white p-8 rounded-[3rem] border border-pink-100 shadow-sm">
-              <div className="flex justify-between items-center mb-8">
-                <h3 className="font-bold uppercase tracking-widest text-xs">
-                  Tren Penjualan Harian (Mei 2026)
-                </h3>
-                <span className="text-[10px] bg-pink-100 text-pink-600 px-3 py-1 rounded-full font-black">
-                  LIVE
-                </span>
-              </div>
-              <div className="h-[300px] w-full min-h-[300px]">
+              <h3 className="font-bold uppercase tracking-widest text-xs mb-8">
+                Tren Penjualan Harian (Mei 2026)
+              </h3>
+              <div className="h-[300px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={dataHarian}>
                     <defs>
@@ -244,7 +269,6 @@ export default function SuperAdminDashboard() {
                       tick={{ fontSize: 10 }}
                     />
                     <Tooltip
-                      labelFormatter={(v, p) => p[0]?.payload?.date || v}
                       contentStyle={{
                         borderRadius: "15px",
                         border: "none",
@@ -262,8 +286,6 @@ export default function SuperAdminDashboard() {
                 </ResponsiveContainer>
               </div>
             </div>
-
-            {/* List Outlet - Fitur Tambahan */}
             <div className="bg-white p-8 rounded-[3rem] border border-pink-100 shadow-sm">
               <h3 className="font-bold uppercase tracking-widest text-xs mb-6">
                 Performa Outlet Teratas
@@ -303,10 +325,9 @@ export default function SuperAdminDashboard() {
           </div>
         )}
 
-        {/* TAB TAMBAH OUTLET */}
+        {/* --- TAB TAMBAH OUTLET --- */}
         {activeTab === "outlet" && (
           <div className="max-w-2xl animate-in slide-in-from-bottom-4 duration-500">
-            {/* Form Anda sudah sempurna, tetap pertahankan rows={3} untuk menghindari merah */}
             <header className="mb-10">
               <h1 className="text-3xl font-black tracking-tight">
                 Tambah Outlet Baru
@@ -380,99 +401,196 @@ export default function SuperAdminDashboard() {
           </div>
         )}
 
-        {/* TAB LAPORAN */}
+        {/* --- TAB LAPORAN --- */}
         {activeTab === "laporan" && (
           <div className="space-y-8 animate-in fade-in duration-500">
-            <header>
-              <h1 className="text-3xl font-black tracking-tight">
-                Arsip Laporan
-              </h1>
-              <p className="text-pink-900/40 text-sm">
-                Analisis detail harian, bulanan, dan tahunan.
-              </p>
+            <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div>
+                <h1 className="text-3xl font-black tracking-tight">
+                  Konsolidasi Laporan
+                </h1>
+                <p className="text-pink-900/40 text-sm">
+                  Pantau performa seluruh cabang dan detail tiap outlet.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-4">
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-black uppercase text-pink-500 tracking-widest">
+                    Rentang Waktu
+                  </label>
+                  <div className="flex bg-white border border-pink-100 rounded-2xl p-1 shadow-sm">
+                    {["harian", "bulanan", "tahunan"].map((filter) => (
+                      <button
+                        key={filter}
+                        onClick={() => setTimeFilter(filter)}
+                        className={`px-4 py-1.5 text-[10px] font-bold uppercase rounded-xl transition-all ${
+                          timeFilter === filter
+                            ? "bg-pink-600 text-white shadow-md"
+                            : "text-pink-400 hover:text-pink-600"
+                        }`}
+                      >
+                        {filter}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-black uppercase text-pink-500 tracking-widest">
+                    Pilih Outlet
+                  </label>
+                  <select
+                    value={selectedOutlet}
+                    onChange={(e) => setSelectedOutlet(e.target.value)}
+                    className="bg-white border border-pink-100 rounded-2xl px-4 py-2.5 text-xs font-bold shadow-sm focus:ring-2 focus:ring-pink-500 outline-none cursor-pointer"
+                  >
+                    <option value="all">Semua Cabang (Pusat)</option>
+                    {outlets.map((outlet) => (
+                      <option key={outlet.id} value={outlet.id}>
+                        {outlet.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
             </header>
 
+            {/* --- PENAMBAHAN: DETAIL INSIGHT BOX --- */}
+            <div className="bg-white p-6 rounded-[2.5rem] border border-pink-100 shadow-sm flex flex-col md:flex-row items-center gap-8 animate-in slide-in-from-top-2">
+              <div className="w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center text-pink-600 shadow-inner">
+                <Zap className="w-8 h-8 fill-pink-600" />
+              </div>
+              <div className="flex-1 text-center md:text-left space-y-1">
+                <div className="flex items-center justify-center md:justify-start gap-2">
+                  <h2 className="text-xl font-black text-pink-900 uppercase italic">
+                    {insight.title}
+                  </h2>
+                  <span className="bg-pink-600 text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">
+                    Active
+                  </span>
+                </div>
+                <p className="text-xs font-bold text-pink-400 flex items-center justify-center md:justify-start gap-1 uppercase">
+                  <Calendar className="w-3 h-3" /> {insight.detail}
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-4 w-full md:w-auto">
+                <div className="bg-pink-50 p-4 rounded-3xl border border-pink-100">
+                  <p className="text-[9px] font-black text-pink-400 uppercase tracking-widest">
+                    Puncak Terbanyak
+                  </p>
+                  <p className="text-sm font-bold text-pink-900">
+                    {insight.peak}
+                  </p>
+                </div>
+                <div className="bg-pink-50 p-4 rounded-3xl border border-pink-100">
+                  <p className="text-[9px] font-black text-pink-400 uppercase tracking-widest">
+                    Insight Cepat
+                  </p>
+                  <p className="text-[10px] font-medium text-pink-800 leading-tight">
+                    {insight.note}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Summary Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-gradient-to-br from-pink-600 to-pink-700 p-6 rounded-[2.5rem] text-white shadow-lg">
+                <p className="text-[10px] font-bold uppercase opacity-80 mb-1">
+                  Total Omzet ({timeFilter})
+                </p>
+                <h2 className="text-2xl font-black">Rp 1.420.500.000</h2>
+                <div className="mt-4 text-[10px] bg-white/20 inline-block px-3 py-1 rounded-full">
+                  ↑ 14% vs{" "}
+                  {timeFilter === "harian"
+                    ? "Kemarin"
+                    : timeFilter === "bulanan"
+                      ? "Bulan Lalu"
+                      : "Tahun Lalu"}
+                </div>
+              </div>
+              <div className="bg-white p-6 rounded-[2.5rem] border border-pink-100 shadow-sm">
+                <p className="text-[10px] font-black text-pink-400 uppercase tracking-widest mb-1">
+                  Rata-rata Transaksi
+                </p>
+                <h2 className="text-2xl font-black text-pink-950">
+                  Rp 450.000
+                </h2>
+                <p className="text-[10px] text-pink-300 mt-4 font-bold uppercase">
+                  Berdasarkan volume penjualan saat ini
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-[2.5rem] border border-pink-100 shadow-sm">
+                <p className="text-[10px] font-black text-pink-400 uppercase tracking-widest mb-1">
+                  Total Produk Terjual
+                </p>
+                <h2 className="text-2xl font-black text-pink-950">3.241 Pcs</h2>
+                <p className="text-[10px] text-green-500 mt-4 font-bold uppercase">
+                  Stok Terkendali
+                </p>
+              </div>
+            </div>
+
+            {/* Grafik Utama */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Grafik Harian */}
               <div className="md:col-span-2 bg-white p-8 rounded-[3rem] border border-pink-100 shadow-sm">
-                <h3 className="font-bold uppercase tracking-widest text-[10px] mb-6">
-                  Grafik Harian
-                </h3>
-                <div className="h-[250px] w-full min-h-[250px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={dataHarian}>
-                      <XAxis dataKey="name" hide />
-                      <Tooltip />
-                      <Area
-                        type="monotone"
-                        dataKey="sales"
-                        stroke="#db2777"
-                        fill="#fbcfe8"
-                        strokeWidth={3}
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
+                <div className="flex justify-between items-center mb-6">
+                  <div>
+                    <h3 className="font-bold uppercase tracking-widest text-[10px]">
+                      {selectedOutlet === "all"
+                        ? "Perbandingan Performa Antar Cabang"
+                        : `Tren Penjualan: ${selectedOutletName}`}
+                    </h3>
+                    <p className="text-[10px] text-pink-300 font-bold uppercase">
+                      Periode: {timeFilter}
+                    </p>
+                  </div>
+                  <span className="text-[10px] font-black bg-pink-50 text-pink-600 px-3 py-1 rounded-full uppercase">
+                    Realtime
+                  </span>
                 </div>
-              </div>
-
-              {/* Grafik Bulanan */}
-              <div className="bg-white p-8 rounded-[3rem] border border-pink-100 shadow-sm">
-                <h3 className="font-bold uppercase tracking-widest text-[10px] mb-2 text-pink-900">
-                  Laporan Bulanan (Mei)
-                </h3>
-                <p className="text-[10px] text-pink-400 mb-6 font-bold uppercase">
-                  Rekor: Kamis, 14 Mei
-                </p>
-                <div className="h-[200px] w-full min-h-[200px]">
+                <div className="h-[300px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={dataBulanan}>
-                      <XAxis
-                        dataKey="name"
-                        axisLine={false}
-                        tickLine={false}
-                        tick={{ fontSize: 10 }}
-                      />
-                      <Tooltip
-                        labelFormatter={(v, p) => p[0]?.payload?.detail || v}
-                        cursor={{ fill: "#FFF1F2" }}
-                      />
-                      <Bar
-                        dataKey="sales"
-                        fill="#db2777"
-                        radius={[5, 5, 0, 0]}
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-
-              {/* Grafik Tahunan */}
-              <div className="bg-[#2D1B1E] p-8 rounded-[3rem] text-white shadow-xl">
-                <h3 className="font-bold uppercase tracking-widest text-[10px] mb-2 text-pink-200">
-                  Laporan Tahunan (2026)
-                </h3>
-                <p className="text-[10px] text-pink-400 mb-6 font-bold uppercase">
-                  Rekor: April (Minggu, 12 Apr)
-                </p>
-                <div className="h-[200px] w-full min-h-[200px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={dataTahunan}>
-                      <XAxis
-                        dataKey="name"
-                        axisLine={false}
-                        tickLine={false}
-                        tick={{ fontSize: 10, fill: "#fda4af" }}
-                      />
-                      <Tooltip
-                        labelFormatter={(v, p) => p[0]?.payload?.detail || v}
-                        contentStyle={{ color: "#000" }}
-                      />
-                      <Bar
-                        dataKey="sales"
-                        fill="#fb7185"
-                        radius={[5, 5, 0, 0]}
-                      />
-                    </BarChart>
+                    {selectedOutlet === "all" ? (
+                      <BarChart data={dataPerCabang}>
+                        <XAxis
+                          dataKey="name"
+                          axisLine={false}
+                          tickLine={false}
+                          tick={{ fontSize: 10, fontWeight: "bold" }}
+                        />
+                        <Tooltip cursor={{ fill: "#FFF1F2" }} />
+                        <Bar
+                          dataKey="sales"
+                          fill="#db2777"
+                          radius={[10, 10, 0, 0]}
+                        />
+                      </BarChart>
+                    ) : (
+                      <AreaChart
+                        data={
+                          timeFilter === "harian"
+                            ? dataHarian
+                            : timeFilter === "bulanan"
+                              ? dataBulanan
+                              : dataTahunan
+                        }
+                      >
+                        <XAxis
+                          dataKey="name"
+                          axisLine={false}
+                          tickLine={false}
+                          tick={{ fontSize: 10, fontWeight: "bold" }}
+                        />
+                        <Tooltip />
+                        <Area
+                          type="monotone"
+                          dataKey="sales"
+                          stroke="#db2777"
+                          fill="#fbcfe8"
+                          strokeWidth={3}
+                        />
+                      </AreaChart>
+                    )}
                   </ResponsiveContainer>
                 </div>
               </div>

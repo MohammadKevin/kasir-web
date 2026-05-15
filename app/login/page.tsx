@@ -16,6 +16,7 @@ export default function LailaPinkLogin() {
         {/* Logo & Header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-[2rem] overflow-hidden shadow-2xl shadow-pink-200 mb-6 border-2 border-pink-100">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/laila.jpg"
               alt="Laila Logo"

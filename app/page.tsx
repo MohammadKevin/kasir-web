@@ -24,6 +24,7 @@ export default function LailaPinkLandingPage() {
         <div className="max-w-7xl mx-auto bg-white/70 backdrop-blur-xl border border-pink-100 rounded-full px-8 py-4 flex justify-between items-center shadow-sm">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg overflow-hidden shadow-md shadow-pink-200">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/laila.jpg"
                 alt="Laila Logo"
