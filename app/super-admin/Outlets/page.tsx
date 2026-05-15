@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import {
     Store,
     Plus,
@@ -238,14 +239,11 @@ export default function OutletsPage() {
                             </div>
 
                             <div className="flex items-center justify-between mt-8">
+                                <Link href="/admin/dashboard" className="block w-full mt-8">
                                 <button className="bg-pink-600 hover:bg-pink-700 transition-all text-white px-6 py-4 rounded-2xl text-xs uppercase tracking-widest font-black shadow-lg shadow-pink-200">
                                     Kelola Outlet
                                 </button>
-
-                                <button className="flex items-center gap-2 text-pink-500 hover:text-pink-700 font-bold transition-all">
-                                    Detail
-                                    <ChevronRight className="w-5 h-5" />
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     ))}
