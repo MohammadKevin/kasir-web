@@ -101,12 +101,7 @@ const lowStockProducts = [
   },
 ];
 
-const COLORS = [
-  "#3B7597",
-  "#81A6C6",
-  "#AACDDC",
-  "#1F3D4F",
-];
+const COLORS = ["#3B7597", "#81A6C6", "#AACDDC", "#1F3D4F"];
 
 export default function SuperAdminDashboardPage() {
   return (
@@ -129,9 +124,7 @@ export default function SuperAdminDashboardPage() {
                 Total Revenue
               </p>
 
-              <h2 className="text-3xl font-black mt-3">
-                Rp 125.5M
-              </h2>
+              <h2 className="text-3xl font-black mt-3">Rp 125.5M</h2>
             </div>
 
             <DollarSign className="w-10 h-10 opacity-80" />
@@ -150,9 +143,7 @@ export default function SuperAdminDashboardPage() {
                 Net Profit
               </p>
 
-              <h2 className="text-3xl font-black mt-3">
-                Rp 38.2M
-              </h2>
+              <h2 className="text-3xl font-black mt-3">Rp 38.2M</h2>
             </div>
 
             <TrendingUp className="w-10 h-10 text-emerald-500" />
@@ -170,9 +161,7 @@ export default function SuperAdminDashboardPage() {
                 Total Expense
               </p>
 
-              <h2 className="text-3xl font-black mt-3">
-                Rp 12.5M
-              </h2>
+              <h2 className="text-3xl font-black mt-3">Rp 12.5M</h2>
             </div>
 
             <TrendingDown className="w-10 h-10 text-rose-500" />
@@ -190,9 +179,7 @@ export default function SuperAdminDashboardPage() {
                 Transactions
               </p>
 
-              <h2 className="text-3xl font-black mt-3">
-                1.284
-              </h2>
+              <h2 className="text-3xl font-black mt-3">1.284</h2>
             </div>
 
             <Receipt className="w-10 h-10 text-[#81A6C6]" />
@@ -208,9 +195,7 @@ export default function SuperAdminDashboardPage() {
         <div className="xl:col-span-2 bg-white p-8 rounded-[2.5rem] border border-[#AACDDC] shadow-sm">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-lg font-black">
-                Sales Analytics
-              </h2>
+              <h2 className="text-lg font-black">Sales Analytics</h2>
 
               <p className="text-sm text-[#81A6C6] mt-1">
                 Revenue 7 hari terakhir
@@ -226,24 +211,10 @@ export default function SuperAdminDashboardPage() {
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={salesChart}>
                 <defs>
-                  <linearGradient
-                    id="colorSales"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop
-                      offset="5%"
-                      stopColor="#3B7597"
-                      stopOpacity={0.4}
-                    />
+                  <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#3B7597" stopOpacity={0.4} />
 
-                    <stop
-                      offset="95%"
-                      stopColor="#3B7597"
-                      stopOpacity={0}
-                    />
+                    <stop offset="95%" stopColor="#3B7597" stopOpacity={0} />
                   </linearGradient>
                 </defs>
 
@@ -277,9 +248,7 @@ export default function SuperAdminDashboardPage() {
         <div className="bg-white p-8 rounded-[2.5rem] border border-[#AACDDC] shadow-sm">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-lg font-black">
-                Payment Methods
-              </h2>
+              <h2 className="text-lg font-black">Payment Methods</h2>
 
               <p className="text-sm text-[#81A6C6] mt-1">
                 Statistik pembayaran
@@ -289,24 +258,27 @@ export default function SuperAdminDashboardPage() {
             <CreditCard className="w-6 h-6 text-[#3B7597]" />
           </div>
 
-          <div className="h-[260px]">
+          {/* PERBAIKAN UTAMA: Responsiveness PieChart Next.js */}
+          <div className="h-[260px] w-full flex items-center justify-center">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={paymentStats}
                   cx="50%"
                   cy="50%"
+                  innerRadius={60}
                   outerRadius={90}
+                  paddingAngle={4}
                   dataKey="value"
-                  label
                 >
-                  {paymentStats.map((_, index) => (
+                  {paymentStats.map((entry, index) => (
                     <Cell
-                      key={index}
+                      key={`cell-${index}`}
                       fill={COLORS[index % COLORS.length]}
                     />
                   ))}
                 </Pie>
+                <Tooltip />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -317,9 +289,7 @@ export default function SuperAdminDashboardPage() {
         <div className="bg-white p-8 rounded-[2.5rem] border border-[#AACDDC] shadow-sm">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-lg font-black">
-                Outlet Performance
-              </h2>
+              <h2 className="text-lg font-black">Outlet Performance</h2>
 
               <p className="text-sm text-[#81A6C6] mt-1">
                 Outlet terbaik bulan ini
@@ -336,9 +306,7 @@ export default function SuperAdminDashboardPage() {
                 className="flex items-center justify-between p-5 rounded-2xl border border-[#D9EAF2] hover:bg-[#F4FAFD] transition-all"
               >
                 <div>
-                  <h3 className="font-black text-sm">
-                    {outlet.name}
-                  </h3>
+                  <h3 className="font-black text-sm">{outlet.name}</h3>
 
                   <p className="text-xs text-[#81A6C6] mt-1 uppercase tracking-widest font-bold">
                     {outlet.transactions} Transactions
@@ -367,13 +335,9 @@ export default function SuperAdminDashboardPage() {
           <div className="bg-white p-8 rounded-[2.5rem] border border-[#AACDDC] shadow-sm">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-lg font-black">
-                  Recent Transactions
-                </h2>
+                <h2 className="text-lg font-black">Recent Transactions</h2>
 
-                <p className="text-sm text-[#81A6C6] mt-1">
-                  Transaksi terbaru
-                </p>
+                <p className="text-sm text-[#81A6C6] mt-1">Transaksi terbaru</p>
               </div>
 
               <Receipt className="w-6 h-6 text-[#3B7597]" />
@@ -406,9 +370,7 @@ export default function SuperAdminDashboardPage() {
           <div className="bg-white p-8 rounded-[2.5rem] border border-[#AACDDC] shadow-sm">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-lg font-black">
-                  Low Stock Warning
-                </h2>
+                <h2 className="text-lg font-black">Low Stock Warning</h2>
 
                 <p className="text-sm text-[#81A6C6] mt-1">
                   Produk hampir habis
@@ -430,9 +392,7 @@ export default function SuperAdminDashboardPage() {
                     </div>
 
                     <div>
-                      <h3 className="font-black text-sm">
-                        {product.name}
-                      </h3>
+                      <h3 className="font-black text-sm">{product.name}</h3>
 
                       <p className="text-xs text-amber-600 font-bold mt-1 uppercase">
                         Restock Needed
@@ -458,9 +418,7 @@ export default function SuperAdminDashboardPage() {
                 Total Outlet
               </p>
 
-              <h2 className="text-3xl font-black mt-3">
-                12
-              </h2>
+              <h2 className="text-3xl font-black mt-3">12</h2>
             </div>
 
             <Store className="w-8 h-8 text-[#3B7597]" />
@@ -474,9 +432,7 @@ export default function SuperAdminDashboardPage() {
                 Total Admin
               </p>
 
-              <h2 className="text-3xl font-black mt-3">
-                18
-              </h2>
+              <h2 className="text-3xl font-black mt-3">18</h2>
             </div>
 
             <Users className="w-8 h-8 text-[#3B7597]" />
@@ -490,9 +446,7 @@ export default function SuperAdminDashboardPage() {
                 Total Products
               </p>
 
-              <h2 className="text-3xl font-black mt-3">
-                542
-              </h2>
+              <h2 className="text-3xl font-black mt-3">542</h2>
             </div>
 
             <ShoppingBag className="w-8 h-8 text-[#3B7597]" />
@@ -506,9 +460,7 @@ export default function SuperAdminDashboardPage() {
                 Best Seller
               </p>
 
-              <h2 className="text-lg font-black mt-3">
-                Hijab Satin
-              </h2>
+              <h2 className="text-lg font-black mt-3">Hijab Satin</h2>
             </div>
 
             <TrendingUp className="w-8 h-8 text-emerald-500" />

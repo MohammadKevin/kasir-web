@@ -25,7 +25,7 @@ const menus = [
   {
     label: "Dashboard",
     icon: LayoutDashboard,
-    href: "/super-admin",
+    href: "/super-admin/dashboard",
   },
   {
     label: "Outlets",
